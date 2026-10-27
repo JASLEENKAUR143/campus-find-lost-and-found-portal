@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f2">
+    <meta name="description" content="A campus lost and found portal to report missing belongings and help them find their way home.">
+    <title>Campus Find — Lost &amp; Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Campus Find home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 28s10-8.1 10-16A10 10 0 0 0 6 12c0 7.9 10 16 10 16Z" fill="currentColor"/>
+            <circle cx="16" cy="12" r="3.5" fill="#F6F7F2"/>
+            <path d="M10 26h12" stroke="#153B2C" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">campus<span>find</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#browse">Browse items</a>
+        <a class="nav-link" href="#how-it-works">How it works</a>
+      </nav>
+      <button class="button button-dark header-report" type="button" data-open-report>
+        <span aria-hidden="true">＋</span> Report an item
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> A little help goes a long way</p>
+          <h1 id="hero-title">Lost something?<br><span>Let’s find it.</span></h1>
+          <p class="hero-description">Your campus is full of good people. Post a lost or found item and help it make its way back home.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-report>＋ Report an item</button>
+            <a class="text-link" href="#browse">Browse listings <span aria-hidden="true">↘</span></a>
+          </div>
+          <div class="community-proof">
+            <div class="avatar-stack" aria-hidden="true"><span>J</span><span>M</span><span>A</span><span>+</span></div>
+            <p><strong id="helpedCount">1,240+</strong><br>items reunited with their owners</p>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a backpack, notebook and keys">
+          <div class="art-sun"></div>
+          <div class="art-note note-left"><span class="note-icon">✳</span><span>Found on campus</span><b>Just now</b></div>
+          <div class="art-note note-right"><span class="note-check">✓</span><span>Back where it belongs</span><b>Good things happen</b></div>
+          <div class="art-object object-book"><div class="book-line"></div><div class="book-line short"></div><span class="book-sticker">♡</span></div>
+          <div class="art-object object-bag"><div class="bag-pocket"></div><div class="bag-handle"></div><div class="bag-strap"></div></div>
+          <div class="art-object object-keys"><span class="key-ring"></span><span class="key-one"></span><span class="key-two"></span><span class="key-charm">✳</span></div>
+          <div class="art-ground"></div>
+          <span class="sparkle sparkle-one">✦</span><span class="sparkle sparkle-two">✳</span>
+        </div>
+      </section>
+
+      <section class="browse-section" id="browse" aria-labelledby="browse-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow section-eyebrow">The campus community board</p>
+            <h2 id="browse-title">Recently posted</h2>
+          </div>
+          <p class="listing-count"><span id="listingCount">0</span> items on the board</p>
+        </div>
+        <div class="search-bar">
+          <label class="search-input-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+            <span class="visually-hidden">Search items</span>
+            <input id="searchInput" type="search" placeholder="Search by item, place, or keyword">
+          </label>
+          <label class="filter-select">
+            <span class="visually-hidden">Filter by item status</span>
+            <select id="statusFilter">
+              <option value="all">All items</option>
+              <option value="lost">Lost</option>
+              <option value="found">Found</option>
+            </select>
+          </label>
+          <label class="filter-select category-select">
+            <span class="visually-hidden">Filter by category</span>
+            <select id="categoryFilter">
+              <option value="all">All categories</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Bags">Bags</option>
+              <option value="Keys">Keys</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-chips" aria-label="Quick filters">
+          <button class="filter-chip selected" type="button" data-quick-filter="all">Everything <span id="allChipCount">0</span></button>
+          <button class="filter-chip" type="button" data-quick-filter="lost">Lost <span id="lostChipCount">0</span></button>
+          <button class="filter-chip" type="button" data-quick-filter="found">Found <span id="foundChipCount">0</span></button>
+          <span class="board-note"><span class="board-note-icon">✦</span> Every post is a chance to help.</span>
+        </div>
+        <div class="listing-grid" id="listingGrid" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <span class="empty-icon">⌕</span>
+          <h3>No matching items yet</h3>
+          <p>Try another search, or add a new post to the board.</p>
+          <button class="button button-outline" type="button" data-open-report>＋ Report an item</button>
+        </div>
+      </section>
+
+      <section class="how-section" id="how-it-works" aria-labelledby="how-title">
+        <div class="how-intro">
+          <p class="eyebrow">A few easy steps</p>
+          <h2 id="how-title">Good things find<br>their way back.</h2>
+          <p>Lost and found works best when we look out for one another. Here’s how to get started.</p>
+        </div>
+        <div class="steps">
+          <article class="step-card"><span class="step-number">01</span><span class="step-icon step-icon-yellow">✎</span><h3>Post the details</h3><p>Share what went missing or what you picked up, plus where and when.</p></article>
+          <article class="step-card"><span class="step-number">02</span><span class="step-icon step-icon-green">⌕</span><h3>Find a match</h3><p>Browse recent posts or search for the item and its last known location.</p></article>
+          <article class="step-card"><span class="step-number">03</span><span class="step-icon step-icon-lilac">♡</span><h3>Make the connection</h3><p>Reach out using the contact shared in the post and arrange a safe handoff.</p></article>
+        </div>
+      </section>
+
+      <section class="kindness-banner">
+        <div class="kindness-spark" aria-hidden="true">✳</div>
+        <div><p class="eyebrow">Small act, big difference</p><h2>Found something? Be someone’s good day.</h2></div>
+        <button class="button button-dark" type="button" data-open-report>Post a found item <span aria-hidden="true">↗</span></button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#" aria-label="Campus Find home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 28s10-8.1 10-16A10 10 0 0 0 6 12c0 7.9 10 16 10 16Z" fill="currentColor"/><circle cx="16" cy="12" r="3.5" fill="#F6F7F2"/></svg></span><span class="brand-name">campus<span>find</span></span></a>
+      <p>Made for campus. Built on a little kindness. <span>✳</span></p>
+      <a href="#browse">Back to top ↑</a>
+    </footer>
+
+    <dialog class="report-dialog" id="reportDialog" aria-labelledby="dialogTitle">
+      <form class="report-form" id="reportForm">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">Add to the community board</p><h2 id="dialogTitle">Report an item</h2></div>
+          <button class="dialog-close" type="button" aria-label="Close dialog" data-close-report>×</button>
+        </div>
+        <p class="dialog-description">A few details can help the right person find their way to your post.</p>
+        <div class="form-toggle" role="group" aria-label="Report type">
+          <label><input type="radio" name="status" value="lost" checked><span>I lost something</span></label>
+          <label><input type="radio" name="status" value="found"><span>I found something</span></label>
+        </div>
+        <label class="form-field">What is it? <input name="title" type="text" maxlength="60" placeholder="e.g. Blue water bottle" required></label>
+        <div class="form-row">
+          <label class="form-field">Category
+            <select name="category" required>
+              <option value="">Choose one</option><option>Electronics</option><option>Bags</option><option>Keys</option><option>Clothing</option><option>Other</option>
+            </select>
+          </label>
+          <label class="form-field">Where?
+            <input name="location" type="text" maxlength="80" placeholder="e.g. Library, 2nd floor" required>
+          </label>
+        </div>
+        <label class="form-field">When? <input name="date" type="date" required></label>
+        <label class="form-field">A few more details <textarea name="description" rows="3" maxlength="240" placeholder="Color, brand, or anything that might help identify it"></textarea></label>
+        <label class="form-field">How can someone reach you? <input name="contact" type="text" maxlength="100" placeholder="Email or campus contact" required></label>
+        <p class="privacy-note"><span aria-hidden="true">ⓘ</span> This demo saves reports in this browser only. Don’t include sensitive personal information.</p>
+        <div class="dialog-actions"><button class="button button-outline" type="button" data-close-report>Cancel</button><button class="button button-primary" type="submit">Post to the board <span aria-hidden="true">↗</span></button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
